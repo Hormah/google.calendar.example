@@ -16,7 +16,7 @@
       $("#output").html("Loading...");
       var country = $("#selectCountry").val();
       var calendarUrl = 'https://www.googleapis.com/calendar/v3/calendars/en.' + country 
-                      + '%23holiday%40group.v.calendar.google.com/events?key=AIzaSyAS0kTdMtX62hTZlNMTrmIKeAbwB4n0l6I';
+                      + '%23holiday%40group.v.calendar.google.com/events?key=[YOUR KEY HERE]';
     
       $.getJSON(calendarUrl)
         .success(function(data) {
