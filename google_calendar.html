@@ -1,0 +1,42 @@
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+ <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+  <select id="selectCountry">
+    <option value="usa">USA</option>
+    <option value="uk">UK</option>
+    <option value="bm">Bermuda</option>
+    <option value="swedish">Sweden</option>
+    <option value="sa">South Africa</option>
+  </select>
+  <script type="text/javascript">
+    $("#selectCountry").change(function(e) {
+      $("#output").html("Loading...");
+      var country = $("#selectCountry").val();
+      var calendarUrl = 'https://www.googleapis.com/calendar/v3/calendars/en.' + country 
+                      + '%23holiday%40group.v.calendar.google.com/events?key=AIzaSyAS0kTdMtX62hTZlNMTrmIKeAbwB4n0l6I';
+    
+      $.getJSON(calendarUrl)
+        .success(function(data) {
+        	console.log(data);
+          $("#output").empty();
+          for (item in data.items) {
+            $("#output").append(
+              "<hr><h3>" + data.items[item].summary + "<h3>" +
+              "<h4>" + data.items[item].start.date + "<h4>"
+            );
+          }
+        })
+        .error(function(error) {
+          $("#output").html("An error occurred.");
+          console.log(error);
+        })
+    });
+   
+    $("#selectCountry").trigger("change");
+  </script>
+  <pre id="output"></pre>
+</body>
+</html>
